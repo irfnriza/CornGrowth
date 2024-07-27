@@ -4,6 +4,7 @@ import numpy as np
 import joblib
 from pymongo import MongoClient
 import matplotlib.pyplot as plt
+from sklearn.impute import SimpleImputer
 
 # Memuat model dari file
 model = joblib.load('crop_growth_model.pkl')
@@ -23,6 +24,11 @@ def get_predictions():
     temperature_column = 'temperature'
     humidity_column = 'humidity'
     soil_moisture_column = 'soil_moisture'
+
+    # Mengganti nilai NaN dengan nilai rata-rata kolom
+    imputer = SimpleImputer(strategy='mean')
+    data[[temperature_column, humidity_column, soil_moisture_column]] = imputer.fit_transform(
+        data[[temperature_column, humidity_column, soil_moisture_column]])
 
     # Menghitung rata-rata data
     mean_data = data[[temperature_column, humidity_column, soil_moisture_column]].mean().values.reshape(1, -1)
