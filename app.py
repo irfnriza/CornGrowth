@@ -105,7 +105,8 @@ st.title('Prediksi Pertumbuhan Jagung')
 if st.button("Perbarui Sekarang"):
     # Menggunakan query parameter untuk menandai perlu refresh
     st.experimental_set_query_params(refresh=True)
-else:
-    mean_pred, latest_pred, data = get_predictions()
-    update_predictions()
-    sidebar_charts(data)
+
+# Selalu jalankan logika untuk mengambil dan menampilkan data
+mean_pred, latest_pred, data = get_predictions()
+update_predictions()
+sidebar_charts(data)
