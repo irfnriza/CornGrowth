@@ -103,13 +103,8 @@ st.title('Prediksi Pertumbuhan Jagung')
 
 # Tombol untuk memperbarui prediksi
 if st.button("Perbarui Sekarang"):
-    # Menggunakan session_state untuk menandai perlu refresh
-    st.session_state.refresh = True
-
-# Jika refresh ditandai, lakukan refresh
-if st.session_state.get('refresh', False):
-    st.session_state.refresh = False
-    st.experimental_rerun()
+    # Menggunakan query parameter untuk menandai perlu refresh
+    st.experimental_set_query_params(refresh=True)
 else:
     mean_pred, latest_pred, data = get_predictions()
     update_predictions()
